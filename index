@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mara Lindqvist — Designer & Frontend Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F1F0F6;
+    --paper-2: #E4E3EE;
+    --ink: #1C2541;
+    --ink-soft: #565D78;
+    --cobalt: #3A4FD8;
+    --sun: #F2C14E;
+    --line: #C9C8D8;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #141A2E; --paper-2: #1D2440; --ink: #E9E8F2; --ink-soft: #A3A8C3;
+      --cobalt: #8C9BFF; --sun: #F2C14E; --line: #2E3656; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #141A2E; --paper-2: #1D2440; --ink: #E9E8F2; --ink-soft: #A3A8C3;
+    --cobalt: #8C9BFF; --sun: #F2C14E; --line: #2E3656; color-scheme: dark;
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 72px); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    font-size: 1.0625rem; line-height: 1.6;
+    font-variation-settings: "opsz" 14;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+    z-index: 10; background: var(--paper);
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 4px; }
+  img, svg { max-width: 100%; display: block; }
+  .wrap { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
+
+  /* Header */
+  header {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .mark { font-weight: 700; text-decoration: none; font-size: 1.1rem; letter-spacing: -0.01em; }
+  .mark span { display: inline-block; width: .6em; height: .6em; background: var(--sun); border-radius: 50%; margin-right: .45em; vertical-align: 0.02em; }
+  nav ul { display: flex; gap: 1.75rem; list-style: none; margin: 0; padding: 0; }
+  nav a { text-decoration: none; color: var(--ink-soft); font-weight: 500; }
+  nav a:hover, nav a.active { color: var(--ink); }
+  .bar-right { display: flex; align-items: center; gap: 1rem; }
+  .icon-btn {
+    background: none; border: 1px solid var(--line); color: var(--ink);
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+  }
+  .icon-btn:hover { border-color: var(--ink); }
+  .menu-btn { display: none; }
+  @media (max-width: 720px) {
+    .menu-btn { display: grid; }
+    nav { position: absolute; top: 64px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--line); display: none; }
+    nav.open { display: block; }
+    nav ul { flex-direction: column; gap: 0; padding: .5rem 1.25rem 1rem; }
+    nav a { display: block; padding: .7rem 0; font-size: 1.15rem; }
+  }
+
+  /* Hero */
+  .hero { padding: clamp(3rem, 9vw, 7rem) 0 clamp(3rem, 7vw, 5rem); }
+  .hero-name {
+    font-size: clamp(3.4rem, 13.5vw, 11rem); line-height: .88; letter-spacing: -0.045em;
+    margin: 0; font-weight: 300; font-variation-settings: "opsz" 96;
+    user-select: none; cursor: default;
+  }
+  .hero-name .line { display: block; white-space: nowrap; }
+  .hero-name .ch { display: inline-block; transition: font-weight .25s ease-out; }
+  @media (prefers-reduced-motion: reduce) { .hero-name .ch { transition: none; } }
+  .hero-foot {
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 2rem; margin-top: clamp(2rem, 5vw, 3.5rem);
+    align-items: end;
+  }
+  .hero-foot p { margin: 0; max-width: 34ch; font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.45; }
+  .status {
+    justify-self: end; display: flex; align-items: center; gap: .6rem;
+    color: var(--ink-soft); font-size: .98rem;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: #3BB273; box-shadow: 0 0 0 4px color-mix(in srgb, #3BB273 25%, transparent); }
+  @media (max-width: 720px) {
+    .hero-foot { grid-template-columns: 1fr; }
+    .status { justify-self: start; }
+  }
+
+  section { padding: clamp(3.5rem, 8vw, 6rem) 0; border-top: 1px solid var(--line); }
+  h2 {
+    font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.05; letter-spacing: -0.03em;
+    font-weight: 600; margin: 0 0 2rem; font-variation-settings: "opsz" 72;
+  }
+  .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .sec-head h2 { margin: 0; }
+
+  /* Filters */
+  .filters { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .filters button {
+    font: inherit; font-size: .95rem; padding: .4rem 1rem; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--line); background: transparent; color: var(--ink);
+  }
+  .filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* Work list */
+  .work { list-style: none; margin: 0; padding: 0; }
+  .project {
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(1.5rem, 4vw, 3.5rem);
+    padding: 2.25rem 0; border-bottom: 1px solid var(--line); align-items: center;
+  }
+  .project:first-child { padding-top: 0; }
+  .project[hidden] { display: none; }
+  .project:nth-child(even) .thumb { order: 2; }
+  .thumb { border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 10; background: var(--paper-2); }
+  .thumb svg { width: 100%; height: 100%; }
+  .project h3 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 0 0 .35rem; letter-spacing: -0.02em; font-weight: 600; line-height: 1.15; }
+  .meta { color: var(--ink-soft); margin: 0 0 1rem; font-size: .98rem; }
+  .project p.desc { margin: 0 0 1.25rem; max-width: 46ch; }
+  .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1.25rem; padding: 0; list-style: none; }
+  .tags li { font-size: .85rem; padding: .2rem .65rem; border-radius: 6px; background: var(--paper-2); color: var(--ink-soft); }
+  .link { font-weight: 600; color: var(--cobalt); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  @media (max-width: 760px) {
+    .project { grid-template-columns: 1fr; }
+    .project:nth-child(even) .thumb { order: 0; }
+  }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 5rem); }
+  .about-grid p { margin: 0 0 1.1rem; max-width: 52ch; }
+  .lead { font-size: clamp(1.3rem, 2.4vw, 1.65rem); line-height: 1.4; letter-spacing: -0.01em; }
+  .skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 2rem; }
+  .skills h3 { font-size: 1rem; margin: 0 0 .5rem; font-weight: 600; }
+  .skills ul { list-style: none; margin: 0; padding: 0; color: var(--ink-soft); }
+  .skills li { padding: .15rem 0; }
+  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
+
+  /* Timeline */
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline li {
+    display: grid; grid-template-columns: 9rem 1fr; gap: 1.5rem; padding: 1.4rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .timeline time { color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  .timeline h3 { margin: 0; font-size: 1.2rem; font-weight: 600; }
+  .timeline .org { color: var(--ink-soft); }
+  .timeline p { margin: .4rem 0 0; max-width: 60ch; }
+  @media (max-width: 560px) { .timeline li { grid-template-columns: 1fr; gap: .25rem; } }
+
+  /* Contact */
+  .contact { background: var(--ink); color: var(--paper); border-top: none; }
+  .contact h2 { font-size: clamp(2.4rem, 8vw, 5.5rem); letter-spacing: -0.04em; max-width: 14ch; }
+  .contact p { max-width: 46ch; color: color-mix(in srgb, var(--paper) 75%, var(--ink)); margin: 0 0 2rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; }
+  .btn {
+    font: inherit; font-weight: 600; padding: .85rem 1.5rem; border-radius: 999px; cursor: pointer;
+    border: 2px solid var(--sun); text-decoration: none; display: inline-block;
+  }
+  .btn-primary { background: var(--sun); color: #1C2541; }
+  .btn-ghost { background: transparent; color: var(--paper); }
+  .btn:hover { filter: brightness(1.06); }
+  .toast { color: var(--sun); font-weight: 500; min-height: 1.6em; margin-top: 1rem; }
+  .socials { display: flex; gap: 1.5rem; margin-top: 3rem; flex-wrap: wrap; }
+  .socials a { color: var(--paper); text-underline-offset: 4px; }
+
+  footer { background: var(--ink); color: color-mix(in srgb, var(--paper) 60%, var(--ink)); padding: 1.5rem 0 2rem; font-size: .9rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; border-top: 1px solid color-mix(in srgb, var(--paper) 18%, var(--ink)); padding-top: 1.5rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#top"><span aria-hidden="true"></span>Mara Lindqvist</a>
+    <div class="bar-right">
+      <nav id="nav" aria-label="Main">
+        <ul>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="icon-btn" id="themeBtn" aria-label="Switch color theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <h1 class="hero-name" id="heroName" aria-label="Mara Lindqvist">
+      <span class="line" aria-hidden="true">Mara</span>
+      <span class="line" aria-hidden="true">Lindqvist</span>
+    </h1>
+    <div class="hero-foot">
+      <p>I design and build interfaces for tools people use every day — calm, fast, and easy to learn.</p>
+      <div class="status"><span class="dot" aria-hidden="true"></span>Taking on new projects from January</div>
+    </div>
+  </div>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Selected work</h2>
+        <div class="filters" role="group" aria-label="Filter projects">
+          <button aria-pressed="true" data-filter="all">All</button>
+          <button aria-pressed="false" data-filter="product">Product</button>
+          <button aria-pressed="false" data-filter="web">Web</button>
+          <button aria-pressed="false" data-filter="system">Design systems</button>
+        </div>
+      </div>
+
+      <ul class="work">
+        <li class="project" data-cat="product">
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
+              <rect width="320" height="200" fill="#3A4FD8"/>
+              <rect x="40" y="36" width="240" height="140" rx="10" fill="#F1F0F6"/>
+              <rect x="56" y="54" width="70" height="8" rx="4" fill="#1C2541"/>
+              <rect x="56" y="76" width="208" height="22" rx="5" fill="#E4E3EE"/>
+              <rect x="56" y="106" width="208" height="22" rx="5" fill="#E4E3EE"/>
+              <rect x="56" y="136" width="120" height="22" rx="5" fill="#F2C14E"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Fieldnote</h3>
+            <p class="meta">Product design and frontend, 2025</p>
+            <p class="desc">A note-taking app for field researchers that works offline. I redesigned capture so a note takes two taps, and cut sync conflicts by 70%.</p>
+            <ul class="tags"><li>React</li><li>IndexedDB</li><li>Figma</li></ul>
+            <a class="link" href="#">Read the case study</a>
+          </div>
+        </li>
+
+        <li class="project" data-cat="web">
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
+              <rect width="320" height="200" fill="#F2C14E"/>
+              <circle cx="230" cy="100" r="62" fill="#1C2541"/>
+              <circle cx="230" cy="100" r="34" fill="#F2C14E"/>
+              <rect x="36" y="58" width="110" height="14" rx="3" fill="#1C2541"/>
+              <rect x="36" y="82" width="80" height="14" rx="3" fill="#1C2541"/>
+              <rect x="36" y="122" width="62" height="20" rx="10" fill="#3A4FD8"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Northlight Coffee</h3>
+            <p class="meta">Website and online shop, 2024</p>
+            <p class="desc">A new site for a small roastery in Göteborg. Subscriptions became the shop's top seller within three months of launch.</p>
+            <ul class="tags"><li>HTML &amp; CSS</li><li>Shopify</li><li>Brand</li></ul>
+            <a class="link" href="#">Visit the site</a>
+          </div>
+        </li>
+
+        <li class="project" data-cat="system">
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
+              <rect width="320" height="200" fill="#1C2541"/>
+              <g fill="#F1F0F6">
+                <rect x="36" y="40" width="50" height="50" rx="8"/>
+                <rect x="96" y="40" width="50" height="50" rx="25"/>
+                <rect x="156" y="40" width="50" height="50" rx="2"/>
+              </g>
+              <rect x="216" y="40" width="68" height="50" rx="8" fill="#F2C14E"/>
+              <rect x="36" y="110" width="248" height="10" rx="5" fill="#3A4FD8"/>
+              <rect x="36" y="132" width="180" height="10" rx="5" fill="#565D78"/>
+              <rect x="36" y="154" width="120" height="10" rx="5" fill="#565D78"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Tessera design system</h3>
+            <p class="meta">Design system lead at Halvard, 2023–2024</p>
+            <p class="desc">One component library for four product teams. I set up the tokens, wrote the docs, and ran weekly office hours until teams stopped needing them.</p>
+            <ul class="tags"><li>Web Components</li><li>Tokens</li><li>Storybook</li></ul>
+            <a class="link" href="#">Read the case study</a>
+          </div>
+        </li>
+
+        <li class="project" data-cat="product">
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
+              <rect width="320" height="200" fill="#E4E3EE"/>
+              <polyline points="30,150 80,120 130,132 180,80 230,96 290,46" fill="none" stroke="#3A4FD8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="180" cy="80" r="9" fill="#F2C14E" stroke="#1C2541" stroke-width="3"/>
+              <rect x="30" y="170" width="260" height="3" fill="#1C2541"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Ledgerly</h3>
+            <p class="meta">Dashboard redesign, 2023</p>
+            <p class="desc">A finance dashboard for freelancers. Fewer charts, clearer numbers: support tickets about “where is my money” dropped by half.</p>
+            <ul class="tags"><li>TypeScript</li><li>D3</li><li>Usability testing</li></ul>
+            <a class="link" href="#">Read the case study</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about-grid">
+      <div>
+        <h2>About</h2>
+        <p class="lead">I’m a designer who writes production code, based in Stockholm.</p>
+        <p>For eight years I’ve worked between design and engineering — sketching in Figma in the morning and shipping the same idea in the browser by afternoon. Working in both means fewer handoffs and fewer surprises.</p>
+        <p>Outside work I teach an evening course on accessible web design and spend too long choosing typefaces.</p>
+      </div>
+      <div class="skills">
+        <div><h3>Design</h3><ul><li>Interaction design</li><li>Prototyping</li><li>Design systems</li><li>User research</li></ul></div>
+        <div><h3>Code</h3><ul><li>HTML, CSS, JavaScript</li><li>TypeScript &amp; React</li><li>Web Components</li><li>Accessibility (WCAG)</li></ul></div>
+        <div><h3>Tools</h3><ul><li>Figma</li><li>Storybook</li><li>Git</li><li>Vite</li></ul></div>
+        <div><h3>Languages</h3><ul><li>Swedish</li><li>English</li><li>German (conversational)</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <h2>Experience</h2>
+      <ol class="timeline" reversed>
+        <li>
+          <time>2025 – now</time>
+          <div><h3>Independent designer &amp; developer</h3><span class="org">Freelance</span>
+          <p>Product and web projects for small teams who need design and code from one person.</p></div>
+        </li>
+        <li>
+          <time>2021 – 2024</time>
+          <div><h3>Senior product designer</h3><span class="org">Halvard</span>
+          <p>Led the Tessera design system and redesigned onboarding for the core app.</p></div>
+        </li>
+        <li>
+          <time>2018 – 2021</time>
+          <div><h3>Frontend developer</h3><span class="org">Studio Kvarn</span>
+          <p>Built marketing sites and web apps for clients in retail and culture.</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <h2>Let’s make something useful.</h2>
+      <p>Tell me about your project, your timeline and what’s not working today. I reply within two working days.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="mailto:hello@maralindqvist.se">Email me</a>
+        <button class="btn btn-ghost" id="copyBtn">Copy email address</button>
+      </div>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      <div class="socials">
+        <a href="#">GitHub</a><a href="#">LinkedIn</a><a href="#">Dribbble</a><a href="#">Read.cv</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Mara Lindqvist</span>
+    <span>Built with HTML, CSS and JavaScript</span>
+  </div>
+</footer>
+
+<script>
+  // Hero: letters thicken as the pointer gets close
+  (function () {
+    const h = document.getElementById('heroName');
+    h.querySelectorAll('.line').forEach(line => {
+      const text = line.textContent;
+      line.textContent = '';
+      for (const c of text) {
+        const s = document.createElement('span');
+        s.className = 'ch'; s.textContent = c; line.appendChild(s);
+      }
+    });
+    const chars = [...h.querySelectorAll('.ch')];
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const MIN = 300, MAX = 800, RADIUS = 260;
+    let frame = null, px = -9999, py = -9999;
+
+    function paint() {
+      frame = null;
+      chars.forEach(ch => {
+        const r = ch.getBoundingClientRect();
+        const d = Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2));
+        const t = Math.max(0, 1 - d / RADIUS);
+        ch.style.fontWeight = Math.round(MIN + (MAX - MIN) * t * t);
+      });
+    }
+    function move(x, y) { px = x; py = y; if (!frame) frame = requestAnimationFrame(paint); }
+
+    if (!reduce) {
+      window.addEventListener('pointermove', e => move(e.clientX, e.clientY));
+      document.addEventListener('pointerleave', () => move(-9999, -9999));
+      window.addEventListener('scroll', () => { if (px > -9999) move(px, py); }, { passive: true });
+      // a single sweep on load so the effect is discoverable
+      const r = h.getBoundingClientRect();
+      const start = performance.now(), dur = 1400;
+      (function sweep(now) {
+        const t = Math.min(1, (now - start) / dur);
+        move(r.left + r.width * t, r.top + r.height * 0.5);
+        if (t < 1) requestAnimationFrame(sweep); else move(-9999, -9999);
+      })(start);
+    } else {
+      chars.forEach(ch => ch.style.fontWeight = 500);
+    }
+  })();
+
+  // Theme toggle
+  (function () {
+    const root = document.documentElement;
+    try { const saved = localStorage.getItem('theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      const current = root.dataset.theme ||
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+
+  // Mobile menu
+  (function () {
+    const btn = document.getElementById('menuBtn'), nav = document.getElementById('nav');
+    btn.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false');
+    }));
+  })();
+
+  // Project filters
+  (function () {
+    const buttons = document.querySelectorAll('.filters button');
+    const items = document.querySelectorAll('.project');
+    buttons.forEach(b => b.addEventListener('click', () => {
+      buttons.forEach(x => x.setAttribute('aria-pressed', x === b));
+      const f = b.dataset.filter;
+      items.forEach(it => it.hidden = !(f === 'all' || it.dataset.cat === f));
+    }));
+  })();
+
+  // Highlight current section in nav
+  (function () {
+    const links = [...document.querySelectorAll('nav a')];
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('section[id]').forEach(s => obs.observe(s));
+  })();
+
+  // Copy email
+  document.getElementById('copyBtn').addEventListener('click', async () => {
+    const toast = document.getElementById('toast');
+    const email = 'hello@maralindqvist.se';
+    try { await navigator.clipboard.writeText(email); toast.textContent = 'Copied ' + email; }
+    catch (e) { toast.textContent = 'Copy didn’t work here. The address is ' + email; }
+    setTimeout(() => toast.textContent = '', 3500);
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
